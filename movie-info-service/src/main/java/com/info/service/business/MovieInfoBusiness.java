@@ -48,7 +48,7 @@ public class MovieInfoBusiness {
 		return dto;
 	}
 	
-	public MovieDto convertToDto(Movie movie) {
+	private MovieDto convertToDto(Movie movie) {
 		return modelMapper.map(movie,MovieDto.class);
 	}
 

@@ -27,13 +27,6 @@ public class RatingBusiness {
 		return new RatingsEnvelopDto(ratingList);
 	}
 
-	public RatingsEnvelopDto create(RatingsEnvelopDto dto) {
-		List<RatingDto> ratings = dto.getRatings();
-		List<Rating> entityCollection = ratings.stream().map(this::convertToEntity).collect(Collectors.toList());
-		ratingRepository.saveAll(entityCollection);
-		return dto;
-	}
-
 	public RatingDto rate(RatingDto dto) {
 		if (hasUserAndMovieIds(dto)) {
 			Rating rating;
@@ -49,16 +42,13 @@ public class RatingBusiness {
 		return dto;
 	}
 
+
 	private boolean hasUserAndMovieIds(RatingDto dto) {
 		return dto.getMovieId() != null && dto.getUserId() != null;
 	}
 
 	private RatingDto convertToDto(Rating rating) {
 		return modelMapper.map(rating, RatingDto.class);
-	}
-
-	private Rating convertToEntity(RatingDto dto) {
-		return modelMapper.map(dto, Rating.class);
 	}
 
 }
